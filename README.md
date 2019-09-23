@@ -1,4 +1,4 @@
-### Mine Fashion
+# Mine Fashion
 
 - API REST
 - REDUX
@@ -9,7 +9,9 @@
  - Direcionamento após controle
 - Componentes Estilizados
 
-### Telas
-![HOME](assets/home.png)
+## Telas
+### Home
+![HOME](assets/home.PNG)
 
-![HOME](assets/cart.png)
+### Carrinho
+![CART](assets/cart.PNG)
