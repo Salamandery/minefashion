@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darken, lighten } from 'polished';
+import { darken } from 'polished';
 
 export const Container = styled.div`
     padding: 30px;
@@ -40,8 +40,7 @@ export const ProductTable = styled.table`
         border-bottom: 1px solid #eee;
     }
     #wrapper {
-        height: 100px;
-        min-width: 50px;
+        width: auto;
         background: ${darken(".04", "#ecb3ff")};
     }
     img {
