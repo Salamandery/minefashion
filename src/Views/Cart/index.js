@@ -12,16 +12,40 @@ import {
     ProductTable,
     Total
 } from './style';
-function Cart({products}) {
+import {
+    formatPrice
+} from '../../Util//format';
+function Cart({products, total, dispatch}) {
+
+    function handlerIncrement(product){
+        dispatch({
+            type: "INCREMENT_to_CART",
+            id: product.id,
+            amount: product.amount +1
+        })
+    }
+    function handlerDecrement(product){
+        dispatch({
+            type: "DECREMENT_to_CART",
+            id: product.id,
+            amount: product.amount -1
+        })
+    }
+    function handlerDelete(product){
+        dispatch({
+            type: "REMOVE_FROM_CART",
+            id: product.id
+        })
+    }
     return (
         <Container>
             <ProductTable>
                 <thead>
                     <tr>
                         <th />
-                        <th>Produto</th>
-                        <th>Qtd.</th>
-                        <th>Sub Total.</th>
+                        <th>PRODUTO</th>
+                        <th>QTD.</th>
+                        <th>SUB TOTAL</th>
                         <th />
                     </tr>
                 </thead>
@@ -39,20 +63,20 @@ function Cart({products}) {
                             </td>
                             <td>
                                 <div>
-                                    <button type="button">
+                                    <button type="button" onClick={()=>handlerDecrement(prod)}>
                                         <MdRemoveCircleOutline size={20} color="#7159c1" />
                                     </button>
                                     <input type="number" readOnly value={prod.amount} />
-                                    <button type="button">
+                                    <button type="button" onClick={()=>handlerIncrement(prod)}>
                                         <MdAddCircleOutline size={20} color="#7159c1" />
                                     </button>
                                 </div>
                             </td>
                             <td>
-                                <strong>R$ 258.00</strong>
+                                <strong>{prod.SubTotal}</strong>
                             </td>
                             <td>
-                                <button type="button">
+                                <button type="button" onClick={()=>handlerDelete(prod)}>
                                     <MdDelete size={20} color="#7159c1" />
                                 </button>
                             </td>
@@ -63,17 +87,23 @@ function Cart({products}) {
 
             <footer>
                 <button type="button">
-                    Finalizar Pedido
+                    FINALIZAR PEDIDO
                 </button>
                 
                 <Total>
                     <span>TOTAL</span>
-                    <strong>R$ 1900.00</strong>
+                    <strong>{total}</strong>
                 </Total>
             </footer>
         </Container>
     );
 }
 export default connect(state => ({
-    products: state.cart
+    products: state.cart.map(product=>({
+        ...product,
+        SubTotal: formatPrice(product.price * product.amount)
+    })),
+    total: formatPrice(state.cart.reduce((total, product) =>{
+        return total + product.price * product.amount
+    }, 0))
 }))(Cart);

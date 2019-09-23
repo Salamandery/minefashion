@@ -16,7 +16,7 @@ export const ProductList = styled.ul`
 
         > div {
             border-radius: 4px;
-            background: ${darken(.04, "#ecb3ff")};
+            -background: ${darken(.04, "#ecb3ff")};
             min-height: 200px;
         }
         > img: {

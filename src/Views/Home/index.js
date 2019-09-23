@@ -15,7 +15,7 @@ import {
 import {
     ProductList
 } from './style';
-function Home({dispatch}){
+function Home({dispatch, amount}){
     const [products, setProducts] = useState([]);
     useEffect(()=>{
         loadProduct();
@@ -30,10 +30,10 @@ function Home({dispatch}){
 
         setProducts(data);
     }
-    function handleAddProduct(product){
+    function handleAddProduct(id){
         dispatch({
-            type: 'ADD_TO_CART',
-            product
+            type: 'AFTER_TO_CART',
+            id
         });
     }
     return (
@@ -45,9 +45,9 @@ function Home({dispatch}){
                     </div>
                     <strong>{product.title}</strong>
                     <span>{product.priceFormatted}</span>
-                    <button type="button" onClick={()=>handleAddProduct(product)}>
+                    <button type="button" onClick={()=>handleAddProduct(product.id)}>
                         <div>
-                            <MdShoppingCart size={36} color="#fff" /> 3
+                            <MdShoppingCart size={36} color="#fff" /> {amount[product.id] || 0}
                         </div>
                         <span>ADICIONAR AO CARRINHO</span>
                     </button>
@@ -57,4 +57,9 @@ function Home({dispatch}){
     )
 }
 
-export default connect()(Home);
+export default connect(state=>({
+    amount: state.cart.reduce((amount, product)=>{
+        amount[product.id] = product.amount;
+        return amount;
+    }, {})
+}))(Home);

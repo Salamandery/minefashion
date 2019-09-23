@@ -41,7 +41,7 @@ export const ProductTable = styled.table`
     }
     #wrapper {
         width: auto;
-        background: ${darken(".04", "#ecb3ff")};
+        -background: ${darken(".04", "#ecb3ff")};
     }
     img {
         height: 100px;
