@@ -1,5 +1,7 @@
-import { call, select, put, all, takeLatest } from 'redux-saga/effects';
 import api from '../../../Services/api';
+//import history from '../../../Services/history'; se redirect for necessario
+import { call, select, put, all, takeLatest } from 'redux-saga/effects';
+import {toast} from 'react-toastify';
 import {formatPrice} from '../../../Util/format';
 
 function* addToCart({id}) {
@@ -7,10 +9,21 @@ function* addToCart({id}) {
         state => state.cart.find(p => p.id === id),
     )
 
-    if (productExists){
-        const amount = productExists.amount +1;
+    const stock = yield call(api.get, `/stock/${id}`);
+
+    const stockAmount = stock.data.amount;
+    const currentAmount = productExists ? productExists.amount : 0;
+
+    const amount = currentAmount +1;
+
+    if (amount > stockAmount) {
+        toast.error("Não há mais estoque do produto solicitado!");
+        return;
+    }
+
+    if (productExists){ 
         yield put({
-            type: "INCREMENT_to_CART",
+            type: "UPDATEAMOUNT_to_CART",
             id,
             amount
         })
@@ -27,9 +40,37 @@ function* addToCart({id}) {
             type: "ADD_TO_CART",
             product: data
         });
+        //history.push('/cart');
     }
 }
+function* UpdateAmount({id, amount}) {
+    if (amount <= 0) {
+        return;
+    }
+    const productExists = yield select(
+        state => state.cart.find(p => p.id === id),
+    )
+    
+    if (productExists) {
+        const stock = yield call(api.get, `/stock/${id}`);
+        const stockAmount = stock.data.amount;
+        
+        if(amount > stockAmount) {
+            toast.error("Não há mais estoque do produto solicitado!");
+            return;
+        }
 
+        yield put({
+            type: "UPDATEAMOUNT_to_CART",
+            id,
+            amount
+        });
+    } else {
+        toast.error("Ops.. Algo de errado aconteceu :(");
+        return;
+    }
+}
 export default all([
     takeLatest('AFTER_TO_CART', addToCart),
+    takeLatest('AFTER_UPDATEAMOUNT_to_CART', UpdateAmount),
 ]);

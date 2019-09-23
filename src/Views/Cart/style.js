@@ -4,6 +4,8 @@ import { darken } from 'polished';
 export const Container = styled.div`
     padding: 30px;
     background: #fff;
+    border-radius: 4px;
+    box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, .1);
 
     footer {
         margin-top: 30px;
@@ -12,7 +14,7 @@ export const Container = styled.div`
         align-items: center;
 
         button {
-            background: #7159c1;
+            background: #a4287d;
             color: #fff;
             border: 0;
             border-radius: 4px;
@@ -21,23 +23,30 @@ export const Container = styled.div`
             text-transform: uppercase;
 
             &:hover {
-                background: ${darken(.03, "#7159c1")};
+                background: ${darken(.45, "#f5d6eb")}; 
             }
         }
     }
 `;
 export const ProductTable = styled.table`
     width: 100%;
+    border-radius: 4px;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, .1);
 
+    thead th {
+        border-bottom: 1px solid #eee;
+    }
     thead th {
         color: #999;
         text-align: laft;
         padding: 12px;
     }
-    tbody td {
+    tbody tr:not(:last-of-type) td {
+        border-bottom: 1px solid #eee;
+    }
+    tbody tr td {
         padding: 12px;
         vertical-align: middle;
-        border-bottom: 1px solid #eee;
     }
     #wrapper {
         width: auto;
@@ -70,8 +79,9 @@ export const ProductTable = styled.table`
     }
     button {
         background: none;
+        color: #a4287d;
         border: 0;
-        padding: 6px;
+        padding: 5px;
         margin: 1px;
         border-radius: 4px;
         transition: background .2s;

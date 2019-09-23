@@ -18,7 +18,7 @@ function Header({cartSize}) {
     return (
         <Container>
             <Link to="/">
-                <h1>Momo's Shop</h1>
+                <h1>Mine Fashion</h1>
             </Link>
             <Cart to="/cart">
                 <div>

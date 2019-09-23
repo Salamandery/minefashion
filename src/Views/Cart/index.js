@@ -19,14 +19,14 @@ function Cart({products, total, dispatch}) {
 
     function handlerIncrement(product){
         dispatch({
-            type: "INCREMENT_to_CART",
+            type: "AFTER_UPDATEAMOUNT_to_CART",
             id: product.id,
             amount: product.amount +1
         })
     }
     function handlerDecrement(product){
         dispatch({
-            type: "DECREMENT_to_CART",
+            type: "AFTER_UPDATEAMOUNT_to_CART",
             id: product.id,
             amount: product.amount -1
         })
@@ -64,11 +64,11 @@ function Cart({products, total, dispatch}) {
                             <td>
                                 <div>
                                     <button type="button" onClick={()=>handlerDecrement(prod)}>
-                                        <MdRemoveCircleOutline size={20} color="#7159c1" />
+                                        <MdRemoveCircleOutline size={20}  />
                                     </button>
                                     <input type="number" readOnly value={prod.amount} />
                                     <button type="button" onClick={()=>handlerIncrement(prod)}>
-                                        <MdAddCircleOutline size={20} color="#7159c1" />
+                                        <MdAddCircleOutline size={20}  />
                                     </button>
                                 </div>
                             </td>
@@ -77,7 +77,7 @@ function Cart({products, total, dispatch}) {
                             </td>
                             <td>
                                 <button type="button" onClick={()=>handlerDelete(prod)}>
-                                    <MdDelete size={20} color="#7159c1" />
+                                    <MdDelete size={20} />
                                 </button>
                             </td>
                         </tr>

@@ -16,18 +16,7 @@ export default function cart(state = [], action){
                 }
             });
         }
-        case 'INCREMENT_to_CART': {
-            return produce(state, draft=>{
-                const idx = draft.findIndex(p => p.id === action.id);
-                if (idx >= 0) {
-                    draft[idx].amount = action.amount;
-                }
-            });
-        }
-        case 'DECREMENT_to_CART': {
-            if (action.amount <= 0) {
-                return state;
-            }
+        case 'UPDATEAMOUNT_to_CART': {
             return produce(state, draft=>{
                 const idx = draft.findIndex(p => p.id === action.id);
                 if (idx >= 0) {
