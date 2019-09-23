@@ -15,7 +15,7 @@ export default function Header() {
     return (
         <Container>
             <Link to="/">
-                <h1>MomoShoes</h1>
+                <h1>Momo's Shop</h1>
             </Link>
             <Cart to="/cart">
                 <div>
