@@ -9,7 +9,7 @@
  - Direcionamento após controle
 - Componentes Estilizados
 
-URL: https://minifashion.herokuapp.com/
+URL: https://minifashion.atomiccodes.com.br
 ## Telas
 ### Home
 ![HOME](assets/home.PNG)
